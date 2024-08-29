@@ -6,7 +6,7 @@ import Routes from './src/routes';
 const App = () => (
   <NavigationContainer>
     <View style={{flex: 1}}>
-      <StatusBar backgroundColor={'white'} barStyle="light-content" />
+      <StatusBar backgroundColor={'white'} barStyle="dark-content" />
       <Routes />
     </View>
   </NavigationContainer>

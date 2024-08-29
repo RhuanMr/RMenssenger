@@ -16,7 +16,7 @@ const CardItem = () => (
           <Text style={styles.titleText}>Perfil 4</Text>
           <Text style={styles.statusText}>Online</Text>
         </View>
-        <Text>{result}</Text>
+        <Text style={styles.messageText}>{result}</Text>
       </View>
     </View>
   </Pressable>
