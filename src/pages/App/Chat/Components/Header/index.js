@@ -1,24 +1,23 @@
 import React from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 
 const image = require('../../../../../assets/Mocks/Profile_Image.jpg');
-const buttonImage = require('../../../../../assets/Chevron_Left.png');
+const buttonImage = require('../../../../../assets/Chevron_Left_Blue.png');
+const isOnline = true;
 
 const Header = () => (
   <View style={styles.container}>
-    <Pressable>
+    <TouchableOpacity style={styles.backButton}>
       <Image source={buttonImage} />
-    </Pressable>
-    <View style={styles.content}>
-      <Pressable>
-        <Image style={styles.profileImage} source={image} />
-      </Pressable>
+    </TouchableOpacity>
+    <Pressable style={styles.content}>
+      <Image style={styles.profileImage} source={image} />
       <View style={styles.contentText}>
-        <Text>Perfil 4</Text>
-        <Text>Online</Text>
+        <Text style={styles.nameTitle}>Perfil 4</Text>
+        {isOnline && <Text style={styles.statusTitle}>Online</Text>}
       </View>
-    </View>
+    </Pressable>
   </View>
 );
 

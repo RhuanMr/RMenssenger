@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   content: {
-    marginLeft: '10%',
+    marginLeft: '8%',
     flexDirection: 'row',
     flex: 1,
   },
@@ -22,6 +22,18 @@ const styles = StyleSheet.create({
   contentText: {
     justifyContent: 'center',
     marginLeft: '5%',
+  },
+  nameTitle: {
+    fontSize: 18,
+    color: COLORS.TEXT,
+    fontWeight: 'bold',
+  },
+  statusTitle: {
+    color: COLORS.GREEN,
+    fontWeight: 'bold',
+  },
+  backButton: {
+    marginLeft: '2%',
   },
 });
 
