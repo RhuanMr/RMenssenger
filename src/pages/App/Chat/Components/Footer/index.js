@@ -7,7 +7,7 @@ const image = require('../../../../../assets/Paper_Plane.png');
 const Footer = () => (
   <View style={styles.container}>
     <View style={styles.chatInput}>
-      <TextInput style={styles.textInputArea} />
+      <TextInput multiline={true} style={styles.textInputArea} />
     </View>
     <TouchableOpacity style={styles.sendButton}>
       <Image source={image} />
