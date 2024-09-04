@@ -2,7 +2,7 @@ import AppRoutes from './app.routes';
 import AuthRoutes from './auth.routes';
 
 const Routes = () => {
-  const singed = true;
+  const singed = false;
 
   return singed ? <AppRoutes /> : <AuthRoutes />;
 };
