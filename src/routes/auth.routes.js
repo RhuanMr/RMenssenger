@@ -7,11 +7,11 @@ const AuthStack = createStackNavigator();
 
 const AuthRoutes = () => (
   <AuthStack.Navigator>
-    {/* <AuthStack.Screen
+    <AuthStack.Screen
       name="SignIn"
       component={SignIn}
       options={{headerShown: false}}
-    /> */}
+    />
     <AuthStack.Screen
       name="SignUp"
       component={SignUp}
