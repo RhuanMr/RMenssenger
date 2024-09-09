@@ -1,10 +1,11 @@
+import {useAuthStore} from '../store/UserStore';
 import AppRoutes from './app.routes';
 import AuthRoutes from './auth.routes';
 
 const Routes = () => {
-  const singed = false;
+  const {isLoggedIn} = useAuthStore();
 
-  return singed ? <AppRoutes /> : <AuthRoutes />;
+  return isLoggedIn ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;
