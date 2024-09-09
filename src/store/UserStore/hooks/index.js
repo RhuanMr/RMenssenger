@@ -4,41 +4,41 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import {set, ref, getDatabase, child, get} from 'firebase/database';
+import {addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
 
 const auth = getAuth();
-const db = database;
+const usersRef = collection(database, 'users');
 
-export async function signIn(email, password) {
+export function signIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then(async userCredential => {
       const userDB = userCredential.user;
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `/users/${userDB.uid}`)).then(snapshot => {
-        if (snapshot.exists()) {
-          const data = {
-            uid: userDB.uid,
-            name: snapshot.val().name,
-            email: snapshot.val().email,
-            nick: snapshot.val().nick,
-          };
-          return data;
-        }
-      });
+      const docRef = doc(database, 'users', userDB.uid);
+      const docSnap = await getDoc(docRef);
+
+      if ((await docSnap).exists) {
+        const data = {
+          uid: userDB.uid,
+          name: docSnap.data().name,
+          email: docSnap.data().email,
+        };
+        return data;
+      } else {
+        console.log('No such document!');
+      }
     })
     .catch(error => {
       console.error(error);
     });
 }
 
-export async function signUp(email, password, name) {
+export function signUp(email, password, name) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(async userCredential => {
       let uid = userCredential.user.uid;
-      await set(ref(db, 'users/' + uid), {
-        uid: uid,
-        nome: name,
-        email: email,
+      await setDoc(doc(database, 'users', uid), {
+        name,
+        email,
       });
       const data = {
         uid: uid,
