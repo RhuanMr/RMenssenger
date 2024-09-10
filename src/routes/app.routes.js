@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../pages/App/Home';
 import Chat from '../pages/App/Chat';
 import InfoUser from '../pages/App/InfoUser';
+import Profile from '../pages/App/Profile';
 
 const AppStack = createStackNavigator();
 
@@ -21,6 +22,11 @@ const AppRoutes = () => (
     <AppStack.Screen
       name="InfoUser"
       component={InfoUser}
+      options={{headerShown: false}}
+    />
+    <AppStack.Screen
+      name="Profile"
+      component={Profile}
       options={{headerShown: false}}
     />
   </AppStack.Navigator>

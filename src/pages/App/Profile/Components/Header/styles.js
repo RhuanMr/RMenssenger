@@ -7,15 +7,12 @@ const styles = StyleSheet.create({
     height: '10%',
     flexDirection: 'row',
     borderBottomColor: COLORS.SECONDARY,
-    paddingHorizontal: '5%',
-    justifyContent: 'space-between',
+    paddingHorizontal: '2%',
     alignItems: 'center',
-  },
-  content: {
-    flexDirection: 'row',
   },
   title: {
     fontSize: 36,
+    marginLeft: '8%',
     color: COLORS.SECONDARY,
     fontWeight: 'bold',
   },
