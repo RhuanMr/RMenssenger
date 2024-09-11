@@ -1,0 +1,53 @@
+import {useCallback, useEffect, useState} from 'react';
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+} from 'firebase/firestore';
+import {GiftedChat} from 'react-native-gifted-chat';
+import database from '../../../../services/firebaseConnection';
+import {useAuthStore} from '../../../../store/UserStore';
+
+const ChatHooks = () => {
+  const [messages, setMessages] = useState([]);
+  const {user} = useAuthStore();
+
+  useEffect(() => {
+    async function getMessages() {
+      const values = query(
+        collection(database, 'chats'),
+        orderBy('createdAt', 'desc'),
+      );
+      onSnapshot(values, snapshot =>
+        setMessages(
+          snapshot.docs.map(doc => ({
+            _id: doc.data()._id,
+            createdAt: doc.data().createdAt.toDate(),
+            text: doc.data().text,
+            user: doc.data().user,
+          })),
+        ),
+      );
+    }
+    getMessages();
+  }, []);
+
+  const messageSend = useCallback((messages = []) => {
+    setMessages(previousMessages => {
+      GiftedChat.append(previousMessages, messages);
+    });
+    const {_id, createdAt, text, user} = messages[0];
+
+    addDoc(collection(database, 'chats'), {
+      _id,
+      createdAt,
+      text,
+      user,
+    });
+  }, []);
+  return {messages, messageSend, user};
+};
+
+export default ChatHooks;
