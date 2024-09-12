@@ -2,9 +2,11 @@ import React from 'react';
 import styles from './styles';
 import {GiftedChat} from 'react-native-gifted-chat';
 import ChatHooks from '../../Hooks';
+import {useAuthStore} from '../../../../../store/UserStore';
 
-const List = ({chatId}) => {
-  const {messages, messageSend, user} = ChatHooks(chatId);
+const List = ({chatId, otherUser}) => {
+  const {messages, messageSend} = ChatHooks(chatId, otherUser);
+  const {user} = useAuthStore();
 
   return (
     <GiftedChat

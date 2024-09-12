@@ -5,14 +5,13 @@ import {
   onSnapshot,
   query,
   orderBy,
+  setDoc,
 } from 'firebase/firestore';
 import {GiftedChat} from 'react-native-gifted-chat';
 import database from '../../../../services/firebaseConnection';
-import {useAuthStore} from '../../../../store/UserStore';
 
-const ChatHooks = chatId => {
+const ChatHooks = (chatId, otherUser) => {
   const [messages, setMessages] = useState([]);
-  const {user} = useAuthStore();
 
   useEffect(() => {
     async function getMessages() {
@@ -23,39 +22,38 @@ const ChatHooks = chatId => {
       onSnapshot(values, snapshot =>
         setMessages(
           snapshot.docs.map(doc => ({
-            // _id: doc.id,
-            // createdAt: doc.data().createdAt.toDate(),
-            // text: doc.data().text,
-            // forId: doc.data().for,
-            // to: doc.data().to,
             _id: doc.id,
             text: doc.data().text,
             createdAt: doc.data().createdAt.toDate(),
             user: {
-              _id: doc.data().for,
+              _id: doc.data().from,
             },
           })),
         ),
       );
     }
     getMessages();
-  }, [chatId]);
+  }, [chatId, messages]);
 
-  const messageSend = useCallback((messages = []) => {
-    setMessages(previousMessages => {
-      GiftedChat.append(previousMessages, messages);
-    });
-    const {_id, createdAt, text, user} = messages[0];
+  const messageSend = useCallback(
+    (messages = []) => {
+      setMessages(previousMessages =>
+        GiftedChat.append(previousMessages, messages),
+      );
 
-    // addDoc(collection(database, 'chats'), {
-    //   id: _id,
-    //   createdAt,
-    //   text,
-    //   for: ,
-    //   to: ,
-    // });
-  }, []);
-  return {messages, messageSend, user};
+      const {createdAt, text, user} = messages[0];
+
+      addDoc(collection(database, `chats/${chatId}/messages`), {
+        createdAt,
+        text,
+        from: user._id,
+      });
+
+      //setDoc(collection(database, `users/${user._id}/chats/${chatId}`)) // ajustar lógica dessa parte
+    },
+    [chatId],
+  );
+  return {messages, messageSend};
 };
 
 export default ChatHooks;
