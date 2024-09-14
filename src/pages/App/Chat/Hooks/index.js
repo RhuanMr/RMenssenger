@@ -6,11 +6,12 @@ import {
   query,
   orderBy,
   setDoc,
+  doc,
 } from 'firebase/firestore';
 import {GiftedChat} from 'react-native-gifted-chat';
 import database from '../../../../services/firebaseConnection';
 
-const ChatHooks = (chatId, otherUser) => {
+const ChatHooks = (chatId, otherUser, nameOther) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -49,9 +50,15 @@ const ChatHooks = (chatId, otherUser) => {
         from: user._id,
       });
 
-      //setDoc(collection(database, `users/${user._id}/chats/${chatId}`)) // ajustar lógica dessa parte
+      setDoc(doc(database, `users/${user._id}/chats/${chatId}`), {
+        createdAt,
+        lastText: text,
+        from: user._id,
+        with: otherUser,
+        nameWith: nameOther,
+      });
     },
-    [chatId],
+    [chatId, nameOther, otherUser],
   );
   return {messages, messageSend};
 };

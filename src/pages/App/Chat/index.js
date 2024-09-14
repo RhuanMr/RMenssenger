@@ -7,12 +7,12 @@ import Footer from './Components/Footer';
 import ChatHooks from './Hooks';
 
 const Chat = ({route}) => {
-  const {chatId, otherUser} = route.params;
+  const {item} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
-      <List chatId={chatId} otherUser={otherUser} />
+      <Header item={item} />
+      <List item={item} />
     </SafeAreaView>
   );
 };

@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.SECONDARY,
     alignItems: 'center',
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.PRIMARY,
   },
   content: {
     marginLeft: '8%',

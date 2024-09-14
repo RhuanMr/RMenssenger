@@ -18,7 +18,7 @@ const AppHooks = () => {
           snapshot.docs.map(doc => ({
             id: doc.id,
             createdAt: doc.data().createdAt.toDate(),
-            for: doc.data().for,
+            from: doc.data().from,
             lastText: doc.data().lastText,
             nameWith: doc.data().nameWith,
             with: doc.data().with,

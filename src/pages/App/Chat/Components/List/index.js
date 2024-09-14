@@ -4,10 +4,11 @@ import {GiftedChat} from 'react-native-gifted-chat';
 import ChatHooks from '../../Hooks';
 import {useAuthStore} from '../../../../../store/UserStore';
 
-const List = ({chatId, otherUser}) => {
-  const {messages, messageSend} = ChatHooks(chatId, otherUser);
+const List = ({item}) => {
+  const {messages, messageSend} = ChatHooks(item.id, item.with, item.nameWith);
   const {user} = useAuthStore();
 
+  //arrumar o envio lento
   return (
     <GiftedChat
       style={styles.container}

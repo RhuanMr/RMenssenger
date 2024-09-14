@@ -5,11 +5,15 @@ import ActionArea from './Components/ActionArea';
 import ProfileImage from './Components/ProfileImage';
 import PageComponent from '../../../components/Global/Pages';
 
-const InfoUser = () => (
-  <PageComponent style={styles.container} white>
-    <ProfileImage />
-    <ActionArea />
-  </PageComponent>
-);
+const InfoUser = ({route}) => {
+  const {item} = route.params;
+
+  return (
+    <PageComponent style={styles.container} white>
+      <ProfileImage item={item} />
+      <ActionArea />
+    </PageComponent>
+  );
+};
 
 export default InfoUser;
