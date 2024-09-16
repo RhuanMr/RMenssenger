@@ -10,31 +10,34 @@ import {
 } from 'firebase/firestore';
 import {GiftedChat} from 'react-native-gifted-chat';
 import database from '../../../../services/firebaseConnection';
+import {useNavigation} from '@react-navigation/native';
 
 const ChatHooks = (chatId, otherUser, nameOther) => {
   const [messages, setMessages] = useState([]);
+  const chatRef = `chats/${chatId}/messages`;
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function getMessages() {
       const values = query(
-        collection(database, `chats/${chatId}/messages`),
+        collection(database, chatRef),
         orderBy('createdAt', 'desc'),
       );
       onSnapshot(values, snapshot =>
         setMessages(
-          snapshot.docs.map(doc => ({
-            _id: doc.id,
-            text: doc.data().text,
-            createdAt: doc.data().createdAt.toDate(),
+          snapshot.docs.map(docType => ({
+            _id: docType.id,
+            text: docType.data().text,
+            createdAt: docType.data().createdAt.toDate(),
             user: {
-              _id: doc.data().from,
+              _id: docType.data().from,
             },
           })),
         ),
       );
     }
     getMessages();
-  }, [chatId, messages]);
+  }, [chatRef]);
 
   const messageSend = useCallback(
     (messages = []) => {
@@ -44,23 +47,30 @@ const ChatHooks = (chatId, otherUser, nameOther) => {
 
       const {createdAt, text, user} = messages[0];
 
-      addDoc(collection(database, `chats/${chatId}/messages`), {
+      addDoc(collection(database, chatRef), {
         createdAt,
         text,
         from: user._id,
       });
-
-      setDoc(doc(database, `users/${user._id}/chats/${chatId}`), {
-        createdAt,
-        lastText: text,
-        from: user._id,
-        with: otherUser,
-        nameWith: nameOther,
-      });
     },
-    [chatId, nameOther, otherUser],
+    [chatRef],
   );
-  return {messages, messageSend};
+
+  const handleGoToHome = () => {
+    const {createdAt, text, user} = messages[0];
+
+    setDoc(doc(database, `users/${user._id}/chats/${chatId}`), {
+      createdAt,
+      lastText: text,
+      from: user._id,
+      with: otherUser,
+      nameWith: nameOther,
+    });
+
+    navigation.goBack();
+  };
+
+  return {messages, messageSend, handleGoToHome};
 };
 
 export default ChatHooks;

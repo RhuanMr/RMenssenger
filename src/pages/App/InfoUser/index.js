@@ -6,11 +6,11 @@ import ProfileImage from './Components/ProfileImage';
 import PageComponent from '../../../components/Global/Pages';
 
 const InfoUser = ({route}) => {
-  const {item} = route.params;
+  const {nameWith} = route.params;
 
   return (
     <PageComponent style={styles.container} white>
-      <ProfileImage item={item} />
+      <ProfileImage nameWith={nameWith} />
       <ActionArea />
     </PageComponent>
   );

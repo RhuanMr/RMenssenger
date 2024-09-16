@@ -4,15 +4,14 @@ import Header from './Components/Header';
 import styles from './styles';
 import List from './Components/List';
 import Footer from './Components/Footer';
-import ChatHooks from './Hooks';
 
 const Chat = ({route}) => {
-  const {item} = route.params;
+  const {id, idWith, nameWith} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header item={item} />
-      <List item={item} />
+      <Header id={id} idWith={idWith} nameWith={nameWith} />
+      <List id={id} idWith={idWith} nameWith={nameWith} />
     </SafeAreaView>
   );
 };

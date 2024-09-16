@@ -11,7 +11,13 @@ const CardItem = ({item}) => {
   return (
     <Pressable
       style={styles.container}
-      onPress={() => navigation.navigate('Chat', {item})}>
+      onPress={() =>
+        navigation.navigate('Chat', {
+          id: item.id,
+          idWith: item.with,
+          nameWith: item.nameWith,
+        })
+      }>
       <View style={styles.content}>
         <Image style={styles.profileImage} source={image} />
         <View style={styles.textContent}>

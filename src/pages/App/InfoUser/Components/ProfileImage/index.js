@@ -15,7 +15,7 @@ const profile = require('../../../../../assets/Mocks/Profile_Image.jpg');
 const image = require('../../../../../assets/Chevron_Left.png');
 const containerHeight = Dimensions.get('window').height * 0.4;
 
-const ProfileImage = ({item}) => {
+const ProfileImage = ({nameWith}) => {
   const navigation = useNavigation();
 
   return (
@@ -26,7 +26,7 @@ const ProfileImage = ({item}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.contentInfo}>
-        <Text style={styles.nameTitle}>{item.nameWith}</Text>
+        <Text style={styles.nameTitle}>{nameWith}</Text>
         <Image source={profile} style={styles.profileImage} />
       </View>
     </View>
