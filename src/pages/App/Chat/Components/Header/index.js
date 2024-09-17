@@ -8,9 +8,9 @@ const image = require('../../../../../assets/Mocks/Profile_Image.jpg');
 const buttonImage = require('../../../../../assets/Chevron_Left_Blue.png');
 const isOnline = true;
 
-const Header = ({id, idWith, nameWith}) => {
+const Header = ({id, nameWith}) => {
   const navigation = useNavigation();
-  const {handleGoToHome} = ChatHooks(id, idWith, nameWith);
+  const {handleGoToHome} = ChatHooks(id, nameWith);
 
   return (
     <View style={styles.container}>

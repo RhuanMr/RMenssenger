@@ -6,12 +6,12 @@ import List from './Components/List';
 import Footer from './Components/Footer';
 
 const Chat = ({route}) => {
-  const {id, idWith, nameWith} = route.params;
+  const {id, nameWith} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header id={id} idWith={idWith} nameWith={nameWith} />
-      <List id={id} idWith={idWith} nameWith={nameWith} />
+      <Header id={id} nameWith={nameWith} />
+      <List id={id} nameWith={nameWith} />
     </SafeAreaView>
   );
 };

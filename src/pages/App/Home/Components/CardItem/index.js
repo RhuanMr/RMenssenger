@@ -14,7 +14,6 @@ const CardItem = ({item}) => {
       onPress={() =>
         navigation.navigate('Chat', {
           id: item.id,
-          idWith: item.with,
           nameWith: item.nameWith,
         })
       }>
@@ -26,7 +25,7 @@ const CardItem = ({item}) => {
             <Text style={styles.statusText}>Online</Text>
           </View>
           <Text style={styles.messageText}>
-            {item.lastText.slice(0, 45) + '...'}
+            {item.text.slice(0, 45) + '...'}
           </Text>
         </View>
       </View>

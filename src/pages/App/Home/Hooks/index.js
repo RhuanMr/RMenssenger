@@ -19,9 +19,8 @@ const AppHooks = () => {
             id: doc.id,
             createdAt: doc.data().createdAt.toDate(),
             from: doc.data().from,
-            lastText: doc.data().lastText,
+            text: doc.data().text,
             nameWith: doc.data().nameWith,
-            with: doc.data().with,
           })),
         );
       });

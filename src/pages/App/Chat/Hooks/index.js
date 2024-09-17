@@ -11,16 +11,18 @@ import {
 import {GiftedChat} from 'react-native-gifted-chat';
 import database from '../../../../services/firebaseConnection';
 import {useNavigation} from '@react-navigation/native';
+import {useAuthStore} from '../../../../store/UserStore';
 
-const ChatHooks = (chatId, otherUser, nameOther) => {
+const ChatHooks = (chatId, nameOther) => {
   const [messages, setMessages] = useState([]);
-  const chatRef = `chats/${chatId}/messages`;
+  const {user} = useAuthStore();
+  const chatRef = `users/${user.uid}/chats/${chatId}`; // colocar todas as requisisões em uma service depois
   const navigation = useNavigation();
 
   useEffect(() => {
     async function getMessages() {
       const values = query(
-        collection(database, chatRef),
+        collection(database, chatRef + '/messages'),
         orderBy('createdAt', 'desc'),
       );
       onSnapshot(values, snapshot =>
@@ -31,13 +33,14 @@ const ChatHooks = (chatId, otherUser, nameOther) => {
             createdAt: docType.data().createdAt.toDate(),
             user: {
               _id: docType.data().from,
+              name: user.name,
             },
           })),
         ),
       );
     }
     getMessages();
-  }, [chatRef]);
+  }, [chatRef, user.name]);
 
   const messageSend = useCallback(
     (messages = []) => {
@@ -47,26 +50,22 @@ const ChatHooks = (chatId, otherUser, nameOther) => {
 
       const {createdAt, text, user} = messages[0];
 
-      addDoc(collection(database, chatRef), {
+      addDoc(collection(database, chatRef + '/messages'), {
         createdAt,
         text,
         from: user._id,
       });
+      setDoc(doc(database, chatRef), {
+        createdAt,
+        text,
+        from: user._id,
+        nameWith: nameOther,
+      });
     },
-    [chatRef],
+    [chatRef, nameOther],
   );
 
   const handleGoToHome = () => {
-    const {createdAt, text, user} = messages[0];
-
-    setDoc(doc(database, `users/${user._id}/chats/${chatId}`), {
-      createdAt,
-      lastText: text,
-      from: user._id,
-      with: otherUser,
-      nameWith: nameOther,
-    });
-
     navigation.goBack();
   };
 
