@@ -16,7 +16,8 @@ import {useAuthStore} from '../../../../store/UserStore';
 const ChatHooks = (chatId, nameOther) => {
   const [messages, setMessages] = useState([]);
   const {user} = useAuthStore();
-  const chatRef = `users/${user.uid}/chats/${chatId}`; // colocar todas as requisisões em uma service depois
+  const chatRef = `users/${user.uid}/chats/${chatId}`;
+  const chatRefOther = `users/${chatId}/chats/${user.uid}`;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -55,14 +56,25 @@ const ChatHooks = (chatId, nameOther) => {
         text,
         from: user._id,
       });
+      addDoc(collection(database, chatRefOther + '/messages'), {
+        createdAt,
+        text,
+        from: user._id,
+      });
       setDoc(doc(database, chatRef), {
         createdAt,
         text,
         from: user._id,
         nameWith: nameOther,
       });
+      setDoc(doc(database, chatRefOther), {
+        createdAt,
+        text,
+        from: user._id,
+        nameWith: nameOther,
+      });
     },
-    [chatRef, nameOther],
+    [chatRef, chatRefOther, nameOther],
   );
 
   const handleGoToHome = () => {
