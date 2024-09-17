@@ -3,14 +3,14 @@ import COLORS from '../../../../../styles/colors';
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: '5%',
     justifyContent: 'center',
-    height: '12%',
+    height: 120,
     borderBottomWidth: 0.5,
     borderBottomColor: COLORS.SECONDARY,
   },
   content: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   profileImage: {
     width: 70,
@@ -25,18 +25,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   statusText: {
-    fontSize: 15,
+    fontSize: 20,
     marginLeft: '5%',
     color: COLORS.GREEN,
     fontWeight: 'bold',
   },
   titleText: {
-    fontSize: 15,
+    fontSize: 20,
     color: COLORS.SECONDARY,
     fontWeight: 'bold',
   },
   messageText: {
-    fontSize: 10,
+    fontSize: 16,
     color: COLORS.TEXT,
   },
 });

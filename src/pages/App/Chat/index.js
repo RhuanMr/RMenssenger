@@ -5,12 +5,15 @@ import styles from './styles';
 import List from './Components/List';
 import Footer from './Components/Footer';
 
-const Chat = () => (
-  <SafeAreaView style={styles.container}>
-    <Header />
-    <List />
-    <Footer />
-  </SafeAreaView>
-);
+const Chat = ({route}) => {
+  const {id, nameWith} = route.params;
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Header id={id} nameWith={nameWith} />
+      <List id={id} nameWith={nameWith} />
+    </SafeAreaView>
+  );
+};
 
 export default Chat;
