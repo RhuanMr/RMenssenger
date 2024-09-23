@@ -22,7 +22,6 @@ const CardItem = ({item}) => {
         <View style={styles.textContent}>
           <View style={styles.infoContent}>
             <Text style={styles.titleText}>{item.nameWith}</Text>
-            <Text style={styles.statusText}>Online</Text>
           </View>
           <Text style={styles.messageText}>
             {item.text.slice(0, 45) + '...'}

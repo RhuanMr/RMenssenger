@@ -28,12 +28,8 @@ export const useAuthStore = create(set => ({
             email: docSnap.data().email,
           };
           set({user: data});
-          const storageUser = () => {
-            AsyncStorage.setItem('Auth_user', JSON.stringify(data));
-          };
-          if (storageUser) {
-            set({isLoggedIn: true});
-          }
+          AsyncStorage.setItem('Auth_user', JSON.stringify(data));
+          set({isLoggedIn: true});
         }
       })
       .catch(error => {
@@ -55,12 +51,8 @@ export const useAuthStore = create(set => ({
           email: email,
         };
         set({user: data});
-        const storageUser = () => {
-          AsyncStorage.setItem('Auth_user', JSON.stringify(data));
-        };
-        if (storageUser) {
-          set({isLoggedIn: true});
-        }
+        AsyncStorage.setItem('Auth_user', JSON.stringify(data));
+        set({isLoggedIn: true});
       })
       .catch(error => {
         alert(error.code);
@@ -68,10 +60,7 @@ export const useAuthStore = create(set => ({
   },
 
   logout: () => {
-    const removeStorage = data => {
-      AsyncStorage.clear();
-    };
+    AsyncStorage.clear();
     set({isLoggedIn: false});
-    removeStorage();
   },
 }));

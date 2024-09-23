@@ -4,16 +4,19 @@ import styles from './styles';
 import PageComponent from '../../../components/Global/Pages';
 import Header from './Components/Header';
 import ProfileHooks from './Hooks';
+import {useAuthStore} from '../../../store/UserStore';
 
 const profile = require('../../../assets/Mocks/Profile_Image.jpg');
 
 const Profile = () => {
   const {handleLogOut} = ProfileHooks();
+  const {user} = useAuthStore();
+
   return (
     <PageComponent style={styles.container}>
       <Header />
       <View style={styles.contentInfo}>
-        <Text style={styles.nameTitle}>Perfil 2</Text>
+        <Text style={styles.nameTitle}>{user.name}</Text>
         <Image source={profile} style={styles.profileImage} />
       </View>
       <TouchableOpacity
